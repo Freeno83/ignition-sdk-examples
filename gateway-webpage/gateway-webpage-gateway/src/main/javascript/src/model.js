@@ -1,14 +1,14 @@
 import {combineReducers} from 'redux';
 import {checkStatus} from 'ignition-lib';
 
-const CONNECTIONS_LOAD = 'hce/CONNECTIONS_LOAD';
-const CONNECTIONS_ERR = 'hce/CONNECTIONS_ERR';
-const CONNECTIONS_DETAIL_LOAD = 'hce/CONNECTIONS_DETAIL_LOAD';
-const CONNECTIONS_DETAIL_ERR = 'hce/CONNECTIONS_DETAIL_ERR';
+const CONNECTIONS_LOAD = 'kafka/CONNECTIONS_LOAD';
+const CONNECTIONS_ERR = 'kafka/CONNECTIONS_ERR';
+const CONNECTIONS_DETAIL_LOAD = 'kafka/CONNECTIONS_DETAIL_LOAD';
+const CONNECTIONS_DETAIL_ERR = 'kafka/CONNECTIONS_DETAIL_ERR';
 
-const VIEW_ALL = "hce/VIEW_ALL";
-const VIEW_CONNECTION = "hce/VIEW_CONNECTION";
-const FETCH_PERMISSIONS = "hce/FETCH_PERMISSIONS";
+const VIEW_ALL = "kafka/VIEW_ALL";
+const VIEW_CONNECTION = "kafka/VIEW_CONNECTION";
+const FETCH_PERMISSIONS = "kafka/FETCH_PERMISSIONS";
 
 function getConnections(state = null, action) {
     if (action.type === CONNECTIONS_LOAD) {
@@ -78,7 +78,7 @@ export default reducer;
  */
 export function getConnectionsStatus(startNextPoll) {
     return function (dispatch) {
-        fetch(`/data/hce/status/connections`, {
+        fetch(`/data/kafka/status/connections`, {
             method: 'get',
             credentials: 'same-origin',
             headers: {
@@ -100,48 +100,3 @@ export function getConnectionsStatus(startNextPoll) {
     }
 }
 
-// Not used in this example. Shown here as an example of how to pass parameters to status routes
-export function getConnectionDetail(connectionName, startNextPoll) {
-    const encodedConnectionName = encodeURIComponent(encodeURIComponent(connectionName));   // Needs to be double. Do this for anything that could be user generated
-    return function (dispatch) {
-        fetch(`/main/data/hce/status/connections/${encodedConnectionName}`, {
-            method: 'get',
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-            .then(checkStatus)
-            .then(response => response.json())
-            .then(json => {
-                if(startNextPoll()){
-                    dispatch({type: CONNECTIONS_DETAIL_LOAD, detail: json});
-                }
-            })
-            .catch(reason => {
-                startNextPoll();
-                dispatch({type: CONNECTIONS_DETAIL_ERR, reason: reason.toString()});
-            });
-    }
-}
-
-// Not used in this example status page, but can be used to only allow users with config permission to make changes from the status page
-export function fetchPermissions() {
-    return function (dispatch) {
-        fetch('/main/data/status/permissions', {
-            method: 'get',
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-            .then(checkStatus)
-            .then(response => response.json())
-            .then(json => {
-                dispatch({
-                    type: FETCH_PERMISSIONS,
-                    permissions: json
-                });
-            })
-    }
-}

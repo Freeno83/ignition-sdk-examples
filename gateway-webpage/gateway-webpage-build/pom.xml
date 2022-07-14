@@ -45,10 +45,10 @@
                         </projectScope>
                     </projectScopes>
 
-                    <moduleId>com.inductiveautomation.ignition.examples.hce</moduleId>
+                    <moduleId>com.inductiveautomation.ignition.examples.kafka</moduleId>
                     <moduleName>${module-name}</moduleName>
                     <moduleDescription>${module-description}</moduleDescription>
-                    <moduleVersion>${project.version}</moduleVersion>
+                    <moduleVersion>1.0.0.2022071404</moduleVersion>
                     <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>
 
                     <depends>
@@ -61,7 +61,7 @@
                     <hooks>
                         <hook>
                             <scope>G</scope>
-                            <hookClass>com.inductiveautomation.ignition.examples.hce.GatewayHook</hookClass>
+                            <hookClass>com.inductiveautomation.ignition.examples.kafka.GatewayHook</hookClass>
                         </hook>
                     </hooks>
                 </configuration>

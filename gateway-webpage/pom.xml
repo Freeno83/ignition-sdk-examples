@@ -17,8 +17,8 @@
     <properties>
         <ignition-platform-version>8.1.0-SNAPSHOT</ignition-platform-version>
         <ignition-sdk-version>${ignition-platform-version}</ignition-sdk-version>
-        <module-name>Gateway Webpage Example</module-name>
-        <module-description>Implements a fake "Home Connect" hub status and configuration page</module-description>
+        <module-name>Ignition Kafka</module-name>
+        <module-description>Sends tag history, alarms, and audit data to kafka</module-description>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -74,4 +74,20 @@
             </snapshots>
         </repository>
     </repositories>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.7.26</version>
+        </dependency>
+
+    </dependencies>
 </project>

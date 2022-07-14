@@ -2,9 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 // var FailPlugin = require("../../../../../../Platform/gateway-api/src/main/javascript/ia-webpack-plugins/PerrysCheesyWebpackFailPlugin");
 
-
-
-var outputFile = 'homeconnectstatus.js';
+var outputFile = 'kafkastatus.js';
 
 var config = {
   entry: './src/index.js',
@@ -15,7 +13,7 @@ var config = {
         '../resources/mounted/js'),
     filename: outputFile,
     publicPath: '/dist',
-    library: 'homeconnectstatus',
+    library: 'kafkastatus',
     libraryTarget: 'var'
   },
   resolve: {
