@@ -65,6 +65,7 @@ public class KafkaStatusRoutes {
                 connectionJson.put("TagHistoryTopic", config.getTagHistoryTopic());
                 connectionJson.put("isSSL", config.getUseSSL());
                 connectionJson.put("AlarmsTopic", config.getAlarmsTopic());
+                connectionJson.put("MinimumPriority", config.getAlarmPriorityString());
                 connectionJson.put("Source", config.getSource());
                 connectionJson.put("DispPath", config.getDispPath());
                 connectionJson.put("SrcPath", config.getSrcPath());

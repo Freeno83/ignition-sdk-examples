@@ -10,6 +10,7 @@ import com.inductiveautomation.ignition.gateway.localdb.persistence.IdentityFiel
 import com.inductiveautomation.ignition.gateway.localdb.persistence.PersistentRecord;
 import com.inductiveautomation.ignition.gateway.localdb.persistence.RecordMeta;
 import com.inductiveautomation.ignition.gateway.localdb.persistence.StringField;
+import com.inductiveautomation.ignition.gateway.localdb.persistence.EnumField;
 
 /**
  * Written By: Nick Robinson
@@ -24,6 +25,7 @@ public class KafkaSettingsRecord extends PersistentRecord {
             "KafkaSettingsRecord.Noun.Plural");
 
     public static final IdentityField Id = new IdentityField(META);
+    public enum alarmPriorities { Diagnostic, Low, Medium, High, Critical };
 
     //Kafka Settings
     public static final StringField BrokerList = new StringField(META, "Brokers", SFieldFlags.SMANDATORY);
@@ -33,6 +35,11 @@ public class KafkaSettingsRecord extends PersistentRecord {
     public static final BooleanField UseSSL = new BooleanField(META, "UseSSL").setDefault(false);
 
     public static final StringField AlarmsTopic = new StringField(META, "AlarmsTopic", SFieldFlags.SMANDATORY);
+
+    public static final EnumField<alarmPriorities> MinimumPriority =
+            new EnumField<>(META, "MinimumPriority", alarmPriorities.class, SFieldFlags.SMANDATORY).
+                    setDefault(alarmPriorities.Medium);
+
     public static final StringField Source = new StringField(META, "Source", SFieldFlags.SDESCRIPTIVE);
     public static final StringField DispPath = new StringField(META, "DispPath", SFieldFlags.SDESCRIPTIVE);
     public static final StringField SrcPath = new StringField(META, "SrcPath", SFieldFlags.SDESCRIPTIVE);
@@ -46,12 +53,11 @@ public class KafkaSettingsRecord extends PersistentRecord {
             BrokerList, TagHistoryTopic, Enabled, UseStoreAndFwd, UseSSL
     );
     static final Category Alarms = new Category("KafkaSettingsRecord.Category.Alarms", 1001).include(
-            AlarmsTopic, Source, DispPath, SrcPath, AlarmsEnabled
+            AlarmsTopic, MinimumPriority, Source, DispPath, SrcPath, AlarmsEnabled
     );
     static final Category Audit = new Category("KafkaSettingsRecord.Category.Audit", 1002).include(
             AuditTopic, AuditEnabled
     );
-
 
     // record entry accessors
     public void setId(Long id) {
@@ -95,6 +101,12 @@ public class KafkaSettingsRecord extends PersistentRecord {
     public void setUseSSL(Boolean useSSL) { setBoolean(UseSSL, useSSL);}
 
     public String getAlarmsTopic() { return getString(AlarmsTopic); }
+
+    public void setDefaultAlarmPriority() { setEnum(MinimumPriority, alarmPriorities.Medium); }
+
+    public String getAlarmPriorityString() { return getEnum(MinimumPriority).toString(); }
+
+    public int getAlarmPriorityInt() { return alarmPriorities.valueOf(getAlarmPriorityString()).ordinal(); }
 
     public void setAlarmsTopic(String topic) { setString(AlarmsTopic, topic); }
 
@@ -146,6 +158,7 @@ public class KafkaSettingsRecord extends PersistentRecord {
                     .put("UseStoreAndFwd", getUseStoreAndfwd())
                     .put("UseSSL", getUseSSL())
                     .put("AlarmsTopic", getAlarmsTopic())
+                    .put("MinimumPriority", getAlarmPriorityString())
                     .put("Source", getSource())
                     .put("DispPath", getDispPath())
                     .put("SrcPath", getSrcPath())

@@ -48,7 +48,7 @@
                     <moduleId>com.inductiveautomation.ignition.examples.kafka</moduleId>
                     <moduleName>${module-name}</moduleName>
                     <moduleDescription>${module-description}</moduleDescription>
-                    <moduleVersion>1.0.0.2022071404</moduleVersion>
+                    <moduleVersion>1.0.0.2022071514</moduleVersion>
                     <requiredIgnitionVersion>${ignition-platform-version}</requiredIgnitionVersion>
 
                     <depends>

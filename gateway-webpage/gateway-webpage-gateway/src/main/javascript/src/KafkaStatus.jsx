@@ -47,6 +47,7 @@ class ConnectOverview extends Component {
                 { header: 'Audit Topic', weight: 2}
             ];
             const alarmHeaders = [
+                { header: 'Minimum Priority', weight: 1},
                 { header: 'Source', weight: 1 },
                 { header: 'Display Path', weight: 1 },
                 { header: 'Source Path', weight: 2 }
@@ -81,6 +82,7 @@ class ConnectOverview extends Component {
                     });
                     alarmSettings = connectionList.map((connection) => {
                         return [
+                            connection.MinimumPriority,
                             connection.Source == null ? 'none' : connection.Source,
                             connection.DispPath == null ? 'none' : connection.DispPath,
                             connection.SrcPath == null ? 'none' : connection.SrcPath

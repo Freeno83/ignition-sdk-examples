@@ -1,8 +1,5 @@
 package com.inductiveautomation.ignition.examples.tagdriver.configuration;
 
-
-import javax.annotation.Nonnull;
-
 import com.inductiveautomation.ignition.examples.tagdriver.ExampleDevice;
 import com.inductiveautomation.ignition.examples.tagdriver.configuration.settings.ExampleDeviceSettings;
 import com.inductiveautomation.ignition.gateway.localdb.persistence.PersistentRecord;
@@ -35,11 +32,11 @@ public class ExampleDeviceType extends DeviceType {
         return ExampleDeviceSettings.DEVICE_SETTINGS;
     }
 
-    @Nonnull
+
     @Override
     public Device createDevice(
-        @Nonnull DeviceContext deviceContext,
-        @Nonnull DeviceSettingsRecord deviceSettingsRecord
+        DeviceContext deviceContext,
+        DeviceSettingsRecord deviceSettingsRecord
     ) {
 
         ExampleDeviceSettings settings = findProfileSettingsRecord(

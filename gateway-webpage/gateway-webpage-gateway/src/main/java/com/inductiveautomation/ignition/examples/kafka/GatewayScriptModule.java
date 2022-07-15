@@ -147,6 +147,8 @@ public class GatewayScriptModule {
 
     public void sendEquipmentAlarm(AlarmEvent alarm, EventData data, KafkaSettingsRecord kafkaSettings) {
 
+        int minimumPriority = kafkaSettings.getAlarmPriorityInt();
+        Boolean hasPriority = alarm.getPriority().ordinal() >= minimumPriority;
         String src = String.valueOf(alarm.getSource()), path = String.valueOf(alarm.getDisplayPath());
         String[] srcFilter = kafkaSettings.getSource(), pathFilter = kafkaSettings.getDispPath(), srcPathFilter = kafkaSettings.getSrcPath();
         Boolean isSource = nullOrMatchOne(srcFilter, src);
@@ -156,7 +158,7 @@ public class GatewayScriptModule {
         String provider = src.split(":")[1];
         String tagPath = src.split("tag:")[1];
 
-        if (isSource && isPath & isPathOrSource) {
+        if (hasPriority && isSource && isPath & isPathOrSource) {
             try {
                 String json = new JSONObject()
                         .put("uuid", alarm.getId().toString())

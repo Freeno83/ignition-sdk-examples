@@ -3,7 +3,7 @@ package com.inductiveautomation.ignition.examples.tagdriver;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import javax.annotation.Nonnull;
+
 
 import com.inductiveautomation.ignition.examples.tagdriver.configuration.ExampleDeviceType;
 import com.inductiveautomation.ignition.examples.tagdriver.configuration.ValueSimulator;
@@ -55,7 +55,7 @@ public class ExampleDevice extends ManagedDevice {
         getLifecycleManager().addShutdownTask(this::onShutdown);
     }
 
-    @Nonnull
+
     @Override
     public String getStatus() {
         return "Running";

@@ -187,6 +187,7 @@ public class GatewayHook extends AbstractGatewayModuleHook {
             settingsRecord.setUseStoreAndFwd(false);
             settingsRecord.setUseSSL(false);
             settingsRecord.setAlarmsTopic("ignition-alarms");
+            settingsRecord.setDefaultAlarmPriority();
             settingsRecord.setSource("");
             settingsRecord.setAlarmsEnabled(false);
             settingsRecord.setAuditTopic("ignition-audit");
