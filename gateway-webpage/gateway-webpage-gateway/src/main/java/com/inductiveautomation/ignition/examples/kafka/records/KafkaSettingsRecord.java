@@ -104,9 +104,15 @@ public class KafkaSettingsRecord extends PersistentRecord {
 
     public void setDefaultAlarmPriority() { setEnum(MinimumPriority, alarmPriorities.Medium); }
 
-    public String getAlarmPriorityString() { return getEnum(MinimumPriority).toString(); }
+    public String getAlarmPriorityString() {
+        return getEnum(MinimumPriority).toString();
+    }
 
-    public int getAlarmPriorityInt() { return alarmPriorities.valueOf(getAlarmPriorityString()).ordinal(); }
+    public int getAlarmPriorityInt() {
+        return alarmPriorities.valueOf(
+                getAlarmPriorityString()
+        ).ordinal();
+    }
 
     public void setAlarmsTopic(String topic) { setString(AlarmsTopic, topic); }
 
